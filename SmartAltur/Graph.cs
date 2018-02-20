@@ -80,12 +80,4 @@ namespace SmartAltur
             return path;
         }
     }
-
-    public class NodeComparer : IComparer<char>
-    {
-        public int Compare(char x, char y)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
 }

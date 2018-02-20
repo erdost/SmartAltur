@@ -7,6 +7,14 @@
 
   <ItemGroup>
     <PackageReference Include="Combinatorics" Version="1.1.0.19" />
+    <PackageReference Include="Google.Apis" Version="1.32.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ten_workers_from_kollektif.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

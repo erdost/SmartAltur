@@ -1,0 +1,78 @@
+﻿{
+  "StartingPoint": {
+    "Latitude": 41.079846599999996,
+    "Longitude": 29.00833190000003
+  },
+  "Workers": [
+    {
+      "Name": "Ahmet",
+      "Destination": {
+        "Latitude": 40.9910381,
+        "Longitude": 28.64981439999997
+      }
+    },
+    {
+      "Name": "Safa",
+      "Destination": {
+        "Latitude": 41.02685920000001,
+        "Longitude": 28.684272799999917
+      }
+    },
+    {
+      "Name": "Orhan",
+      "Destination": {
+        "Latitude": 41.01714580000001,
+        "Longitude": 28.889322300000003
+      }
+    },
+    {
+      "Name": "Barış",
+      "Destination": {
+        "Latitude": 40.98845069999999,
+        "Longitude": 28.892669699999942
+      }
+    },
+    {
+      "Name": "Özgür",
+      "Destination": {
+        "Latitude": 41.114214799999985,
+        "Longitude": 29.015922499999988
+      }
+    },
+    {
+      "Name": "Pınar",
+      "Destination": {
+        "Latitude": 41.11382680000001,
+        "Longitude": 29.054031399999985
+      }
+    },
+    {
+      "Name": "İmren",
+      "Destination": {
+        "Latitude": 41.1422087,
+        "Longitude": 29.04613489999997
+      }
+    },
+    {
+      "Name": "Damra",
+      "Destination": {
+        "Latitude": 40.99855700000002,
+        "Longitude": 29.064502700000048
+      }
+    },
+    {
+      "Name": "Mustafa",
+      "Destination": {
+        "Latitude": 40.991949199999986,
+        "Longitude": 29.13033489999998
+      }
+    },
+    {
+      "Name": "Tahsin",
+      "Destination": {
+        "Latitude": 41.08530320000001,
+        "Longitude": 28.908805799999982
+      }
+    }
+  ]
+}
