@@ -6,6 +6,8 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 using System.Threading;
+using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace SmartAltur
 {
@@ -13,6 +15,7 @@ namespace SmartAltur
     {
         static void Main(string[] args)
         {
+            // I don't want to see a coma instead of a decimal point when printing doubles
             Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 
             string inputJson = @"ten_workers_from_kollektif.json";
@@ -30,10 +33,19 @@ namespace SmartAltur
 
             var allDistancesBetweenDestinations = DistanceFinder.GetAll(startingPoint, passengers).Result;
 
+            Console.WriteLine("Got distance data from Google...");
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
             var (vehicles, totalDistance) = CalculateMultipleCarsPathForSmallestDistanceTraveled(startingPoint, passengers, allDistancesBetweenDestinations);
 
-            Console.WriteLine(JsonConvert.SerializeObject(vehicles));
+            watch.Stop();
+            int elapsedSeconds = watch.Elapsed.Seconds;
+            Console.WriteLine($"Done in {elapsedSeconds} seconds");
 
+            string json = JsonConvert.SerializeObject(vehicles);
+            // Prettifying JSON
+            Console.WriteLine(JValue.Parse(json).ToString(Formatting.Indented));
+        
             double totalDistanceInKm = Math.Round(totalDistance / 1000, 2);
 
             Console.WriteLine($"Total distance {totalDistanceInKm} km");

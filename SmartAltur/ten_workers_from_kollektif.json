@@ -31,7 +31,7 @@
         "Latitude": 40.98845069999999,
         "Longitude": 28.892669699999942
       }
-    },
+    }
     {
       "Name": "Özgür",
       "Destination": {
@@ -66,14 +66,13 @@
         "Latitude": 40.991949199999986,
         "Longitude": 29.13033489999998
       }
+    },
+    {
+      "Name": "Tahsin",
+      "Destination": {
+        "Latitude": 41.08530320000001,
+        "Longitude": 28.908805799999982
+      }
     }
-    //},
-    //{
-    //  "Name": "Tahsin",
-    //  "Destination": {
-    //    "Latitude": 41.08530320000001,
-    //    "Longitude": 28.908805799999982
-    //  }
-    //}
   ]
 }

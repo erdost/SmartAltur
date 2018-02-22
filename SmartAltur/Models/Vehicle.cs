@@ -6,6 +6,8 @@ namespace SmartAltur.Models
 {
     public class Vehicle
     {
+        public const int ORIGIN = 0;
+
         private readonly IList<IPassenger> _passengers;
 
         private readonly GeoLoc _startingPoint;
@@ -40,7 +42,7 @@ namespace SmartAltur.Models
             // We run shortest path algorithm with each passenger as the end point 
             foreach (var passenger in _passengers)
             {
-                var pathDistance = CalculatePathDistance(graph.ShortestPath('S', passenger.ID));
+                var pathDistance = CalculatePathDistance(graph.ShortestPath(ORIGIN, passenger.ID));
 
                 if(pathDistance < shortestOfShortestPaths)
                 {
@@ -55,23 +57,23 @@ namespace SmartAltur.Models
             var g = new Graph();
 
             // S => 1, S => 2 ...
-            var startToPassengerVertexDistances = new Dictionary<char, double>();
+            var startToPassengerVertexDistances = new Dictionary<int, double>();
             foreach (var passenger in _passengers)
             {
-                var startToPassenger = _distances.FirstOrDefault(i => i.From == "S" && i.To == passenger.ID.ToString());
+                var startToPassenger = _distances.FirstOrDefault(i => i.From == ORIGIN && i.To == passenger.ID);
                 startToPassengerVertexDistances.Add(passenger.ID, startToPassenger.Meters);
             }
-            g.AddVertex('S', startToPassengerVertexDistances);
+            g.AddVertex(ORIGIN, startToPassengerVertexDistances);
 
             // 1 => 2, 2 => 1 ...            
             foreach (var passenger in _passengers)
             {
-                var passengerToPassengerVertexDistances = new Dictionary<char, double>();
+                var passengerToPassengerVertexDistances = new Dictionary<int, double>();
                 foreach (var otherPassenger in _passengers)
                 {
                     if (!passenger.Equals(otherPassenger)) // TODO: overwrite != and == 
                     {
-                        var distanceBetweenTwo = _distances.FirstOrDefault(i => i.From == passenger.ID.ToString() && i.To == otherPassenger.ID.ToString());
+                        var distanceBetweenTwo = _distances.FirstOrDefault(i => i.From == passenger.ID && i.To == otherPassenger.ID);
                         passengerToPassengerVertexDistances.Add(otherPassenger.ID, distanceBetweenTwo.Meters);
                     }
                 }
@@ -80,13 +82,13 @@ namespace SmartAltur.Models
             return g;
         }
 
-        private double CalculatePathDistance(List<char> path)
+        private double CalculatePathDistance(List<int> path)
         {
-            double result = _distances.FirstOrDefault(i => i.From == "S" && i.To == path.Last().ToString()).Meters;
+            double result = _distances.FirstOrDefault(i => i.From == ORIGIN && i.To == path.Last()).Meters;
 
             for (int i = path.Count - 1; i > 0; i--)
             {
-                result += _distances.FirstOrDefault(d => d.From == path[i].ToString() && d.To == path[i-1].ToString()).Meters;
+                result += _distances.FirstOrDefault(d => d.From == path[i] && d.To == path[i-1]).Meters;
             }
 
             return result;

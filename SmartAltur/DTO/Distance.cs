@@ -2,8 +2,8 @@
 {
     public class Distance
     {
-        public string From { get; set; }
-        public string To { get; set; }
+        public int From { get; set; }
+        public int To { get; set; }
         public int Meters { get; set; }
     }
 }

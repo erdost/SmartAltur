@@ -6,20 +6,20 @@ namespace SmartAltur
     // Modified a little bit to accommodate double distances
     public class Graph
     {
-        Dictionary<char, Dictionary<char, double>> vertices = new Dictionary<char, Dictionary<char, double>>();
+        Dictionary<int, Dictionary<int, double>> vertices = new Dictionary<int, Dictionary<int, double>>();
 
-        public void AddVertex(char name, Dictionary<char, double> edges)
+        public void AddVertex(int name, Dictionary<int, double> edges)
         {
             vertices[name] = edges;
         }
         
-        public List<char> ShortestPath(char start, char finish)
+        public List<int> ShortestPath(int start, int finish)
         {
-            var previous = new Dictionary<char, char>();
-            var distances = new Dictionary<char, double>();
-            var nodes = new List<char>();
+            var previous = new Dictionary<int, int>();
+            var distances = new Dictionary<int, double>();
+            var nodes = new List<int>();
 
-            List<char> path = null;
+            List<int> path = null;
 
             foreach (var vertex in vertices)
             {
@@ -50,7 +50,7 @@ namespace SmartAltur
 
                 if (smallest == finish)
                 {
-                    path = new List<char>();
+                    path = new List<int>();
                     while (previous.ContainsKey(smallest))
                     {
                         path.Add(smallest);

@@ -3,7 +3,6 @@ using SmartAltur.DTO;
 using SmartAltur.Models;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -23,8 +22,8 @@ namespace SmartAltur
             for (int i = 0; i < passengers.Count; i++)
             {
                 var distance = new Distance {
-                    From = "S",
-                    To = passengers[i].ID.ToString(),
+                    From = Vehicle.ORIGIN,
+                    To = passengers[i].ID,
                     Meters = response.Rows[0].Elements[i].Distance.Value
                 };
 
@@ -45,8 +44,8 @@ namespace SmartAltur
                 {
                     var distance = new Distance
                     {
-                        From = passenger.ID.ToString(),
-                        To = otherPassengers[j].ID.ToString(),
+                        From = passenger.ID,
+                        To = otherPassengers[j].ID,
                         Meters = response2.Rows[0].Elements[j].Distance.Value
                     };
 

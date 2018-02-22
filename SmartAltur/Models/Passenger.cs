@@ -23,11 +23,11 @@ namespace SmartAltur.Models
 
         public string Name { get; private set; }
 
-        public char ID { get; private set; }
+        public int ID { get; private set; }
 
         private Passenger(int id, string name, GeoLoc destination)
         {
-            ID = (char)id;
+            ID = id;
             Name = name;
             Destination = destination;
         }
@@ -37,6 +37,6 @@ namespace SmartAltur.Models
     {
         GeoLoc Destination { get; }
         string Name { get; }
-        char ID { get; }
+        int ID { get; }
     }
 }

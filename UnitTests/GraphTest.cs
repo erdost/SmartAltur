@@ -10,36 +10,36 @@ namespace UnitTests
         public void Shortest_Path_Between_A_C_Should_Pass_By_B()
         {
             Graph g = new Graph();
-            g.AddVertex('A', new Dictionary<char, double>() { { 'B', 1 }, { 'X', 2 } });
-            g.AddVertex('B', new Dictionary<char, double>() { { 'A', 1 }, { 'C', 1 } });
-            g.AddVertex('C', new Dictionary<char, double>() { { 'B', 1 }, { 'X', 1 } });
-            g.AddVertex('X', new Dictionary<char, double>() { { 'A', 2 }, { 'C', 1 } });
+            g.AddVertex(1, new Dictionary<int, double>() { { 2, 1 }, { 10, 2 } });
+            g.AddVertex(2, new Dictionary<int, double>() { { 1, 1 }, { 3, 1 } });
+            g.AddVertex(3, new Dictionary<int, double>() { { 2, 1 }, { 10, 1 } });
+            g.AddVertex(10, new Dictionary<int, double>() { { 1, 2 }, { 3, 1 } });
 
-            List<char> path = g.ShortestPath('A', 'C');
+            List<int> path = g.ShortestPath(1, 3);
 
-            List<char> expectedPath = new List<char> { 'C', 'B' };
+            List<int> expectedPath = new List<int> { 3, 2 };
 
-            Assert.Equal<List<char>>(expectedPath, path);
+            Assert.Equal<List<int>>(expectedPath, path);
         }
 
         [Fact]
         public void Shortest_Path_Between_A_H_Should_Pass_By_B_F()
         {
             Graph g = new Graph();
-            g.AddVertex('A', new Dictionary<char, double>() { { 'B', 7 }, { 'C', 8 } });
-            g.AddVertex('B', new Dictionary<char, double>() { { 'A', 7 }, { 'F', 2 } });
-            g.AddVertex('C', new Dictionary<char, double>() { { 'A', 8 }, { 'F', 6 }, { 'G', 4 } });
-            g.AddVertex('D', new Dictionary<char, double>() { { 'F', 8 } });
-            g.AddVertex('E', new Dictionary<char, double>() { { 'H', 1 } });
-            g.AddVertex('F', new Dictionary<char, double>() { { 'B', 2 }, { 'C', 6 }, { 'D', 8 }, { 'G', 9 }, { 'H', 3 } });
-            g.AddVertex('G', new Dictionary<char, double>() { { 'C', 4 }, { 'F', 9 } });
-            g.AddVertex('H', new Dictionary<char, double>() { { 'E', 1 }, { 'F', 3 } });
+            g.AddVertex(1, new Dictionary<int, double>() { { 2, 7 }, { 3, 8 } });
+            g.AddVertex(2, new Dictionary<int, double>() { { 1, 7 }, { 6, 2 } });
+            g.AddVertex(3, new Dictionary<int, double>() { { 1, 8 }, { 6, 6 }, { 7, 4 } });
+            g.AddVertex(4, new Dictionary<int, double>() { { 6, 8 } });
+            g.AddVertex(5, new Dictionary<int, double>() { { 8, 1 } });
+            g.AddVertex(6, new Dictionary<int, double>() { { 2, 2 }, { 3, 6 }, { 4, 8 }, { 7, 9 }, { 8, 3 } });
+            g.AddVertex(7, new Dictionary<int, double>() { { 3, 4 }, { 6, 9 } });
+            g.AddVertex(8, new Dictionary<int, double>() { { 5, 1 }, { 6, 3 } });
 
-            List<char> path = g.ShortestPath('A', 'H');
+            List<int> path = g.ShortestPath(1, 8);
             
-            List<char> expectedPath = new List<char> { 'H', 'F', 'B' };
+            List<int> expectedPath = new List<int> { 8, 6, 2 };
 
-            Assert.Equal<List<char>>(expectedPath, path);
+            Assert.Equal<List<int>>(expectedPath, path);
         }
     }
 }
