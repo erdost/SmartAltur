@@ -1,4 +1,5 @@
 ﻿using SmartAltur.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -92,6 +93,19 @@ namespace SmartAltur.Models
             }
 
             return result;
+        }
+
+        public override int GetHashCode()
+        {
+            return _passengers.Sum(i => i.ID);
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null || !(obj is Vehicle))
+                return false;
+            else
+                return GetHashCode() == ((Vehicle)obj).GetHashCode();
         }
     }
 }

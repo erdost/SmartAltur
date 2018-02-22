@@ -8,6 +8,8 @@ using System;
 using System.Threading;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
+using System.Collections;
 
 namespace SmartAltur
 {
@@ -45,39 +47,59 @@ namespace SmartAltur
             string json = JsonConvert.SerializeObject(vehicles);
             // Prettifying JSON
             Console.WriteLine(JValue.Parse(json).ToString(Formatting.Indented));
-        
+
             double totalDistanceInKm = Math.Round(totalDistance / 1000, 2);
 
             Console.WriteLine($"Total distance {totalDistanceInKm} km");
 
             Console.ReadLine();
+            return;
         }
 
-        public static (IList<IList<IPassenger>> vehicles, double totalDistance) CalculateMultipleCarsPathForSmallestDistanceTraveled(GeoLoc startingPoint, List<IPassenger> passengers, List<Distance> allDistances)
+        public static (IList<IList<IPassenger>> vehicles, double totalDistance) CalculateMultipleCarsPathForSmallestDistanceTraveled(GeoLoc startingPoint, List<IPassenger> allPassengers, List<Distance> allDistances)
         {
-            IEnumerable<IList<IList<IPassenger>>> partitions = passengers.Partitions();
+            IEnumerable<IList<IList<IPassenger>>> partitions = allPassengers.Partitions();
 
-            var partitionIndexAndItsDistance = new Dictionary<int, double>();
+            int partitionCount = partitions.Count();
 
-            for (int i = 0; i < partitions.Count(); i++)
+            var partitionIndexAndItsDistance = new Tuple<int, double>[partitionCount];
+
+            var vehiclesWithDistances = new HashSet<Vehicle>();
+
+            for (int i = 0; i < partitionCount; i++)
+            //Parallel.For(0, partitions.Count(), i =>
             {
                 IList<IList<IPassenger>> groups = partitions.ElementAt(i);
 
                 double totalDistance = 0;
 
-                foreach (var group in groups)
+                foreach (var passengers in groups)
                 {
-                    var vehicle = new Vehicle(startingPoint, group, allDistances);
+                    var vehicle = new Vehicle(startingPoint, passengers, allDistances);
 
-                    totalDistance += vehicle.GetDistance();
+                    Vehicle withDistance;
+                    bool isFound = vehiclesWithDistances.TryGetValue(vehicle, out withDistance);
+
+                    if (isFound)
+                    {
+                        totalDistance += withDistance.GetDistance();
+                    }
+                    else
+                    {
+                        totalDistance += vehicle.GetDistance();
+                        vehiclesWithDistances.Add(vehicle);
+                    }
                 }
 
-                partitionIndexAndItsDistance[i] = totalDistance;
-            }
+                partitionIndexAndItsDistance[i] = new Tuple<int, double>(i, totalDistance);
 
-            var winner = partitionIndexAndItsDistance.OrderBy(kvp => kvp.Value).First();
+                Console.SetCursorPosition(0, 1);
+                Console.Write(partitionCount + " - " + i);
+            };
 
-            return (vehicles: partitions.ElementAt(winner.Key), totalDistance: winner.Value);
+            var winner = partitionIndexAndItsDistance.OrderBy(i => i.Item2).First();
+
+            return (vehicles: partitions.ElementAt(winner.Item1), totalDistance: winner.Item2);
         }
     }
 }

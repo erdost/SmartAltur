@@ -59,7 +59,8 @@ namespace SmartAltur
         private static string GetRequestUrl(GeoLoc origin, List<GeoLoc> destinations)
         {
             const string API_URL = "https://maps.googleapis.com/maps/api/distancematrix/json?";
-            const string API_KEY = "AIzaSyBhbo2sRdTJVEJ47Q4GTq4tMFslExcFOOs";
+            //const string API_KEY = "AIzaSyBhbo2sRdTJVEJ47Q4GTq4tMFslExcFOOs";
+            const string API_KEY = "AIzaSyA2VMVwB8SO-vEt60C7-aSZj6V4DQdrMoI";
 
             string destinationsParam = $"{destinations[0].Latitude},{destinations[0].Longitude}";
 

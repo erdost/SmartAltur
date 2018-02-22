@@ -10,7 +10,7 @@ namespace SmartAltur.Models
         public static IPassenger GetInstanceWithId(string name, GeoLoc destination)
         {
             var newPassengerWithId = new Passenger(idSeed, name, destination);
-            idSeed++;
+            idSeed = idSeed * 2;
             return newPassengerWithId;
         }
 
