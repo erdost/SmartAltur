@@ -3,7 +3,7 @@
 namespace SmartAltur
 {
     // Taken from https://github.com/mburst/dijkstras-algorithm/blob/master/dijkstras.cs
-    // Modified a little bit to accommodate double vertex weigths 
+    // Modified a little bit to accommodate double distances
     public class Graph
     {
         Dictionary<char, Dictionary<char, double>> vertices = new Dictionary<char, Dictionary<char, double>>();
@@ -12,7 +12,6 @@ namespace SmartAltur
         {
             vertices[name] = edges;
         }
-
         
         public List<char> ShortestPath(char start, char finish)
         {

@@ -36,7 +36,7 @@ namespace UnitTests
             g.AddVertex('H', new Dictionary<char, double>() { { 'E', 1 }, { 'F', 3 } });
 
             List<char> path = g.ShortestPath('A', 'H');
-
+            
             List<char> expectedPath = new List<char> { 'H', 'F', 'B' };
 
             Assert.Equal<List<char>>(expectedPath, path);

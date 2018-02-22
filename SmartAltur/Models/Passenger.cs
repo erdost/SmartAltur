@@ -1,25 +1,42 @@
 ﻿using SmartAltur.DTO;
-using System.Collections.Generic;
+using System;
 
 namespace SmartAltur.Models
 {
-    public class Passenger
+    public class Passenger : IPassenger, IEquatable<IPassenger>
     {
+        private static int idSeed = 1;
+
+        public static IPassenger GetInstanceWithId(string name, GeoLoc destination)
+        {
+            var newPassengerWithId = new Passenger(idSeed, name, destination);
+            idSeed++;
+            return newPassengerWithId;
+        }
+
+        public bool Equals(IPassenger other)
+        {
+            return ID == other.ID;
+        }
+
         public GeoLoc Destination { get; private set; }
 
         public string Name { get; private set; }
 
-        public int ID { get; private set; }
+        public char ID { get; private set; }
 
-        private Dictionary<int, double> _distancesToOtherPassengers;
-
-        public Passenger(int id, string name, GeoLoc destination)
+        private Passenger(int id, string name, GeoLoc destination)
         {
-            ID = id;
+            ID = (char)id;
             Name = name;
             Destination = destination;
-
-            // Should calculate its destination distances to all the passenger's destination and the starting point
         }
+    }
+
+    public interface IPassenger
+    {
+        GeoLoc Destination { get; }
+        string Name { get; }
+        char ID { get; }
     }
 }
